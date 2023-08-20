@@ -60,6 +60,11 @@ jobs:
         name: Install Apple dependencies
         run: |
           brew install openssl coreutils
+      - if: contains(matrix.target, 'musl')
+        name: Install musl dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y musl-tools openssl-dev
       - name: Build
         run: |
           cargo build --release --target ${{ matrix.target }}
