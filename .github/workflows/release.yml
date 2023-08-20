@@ -1,0 +1,117 @@
+name: release
+
+concurrency:
+  group: build-binary-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-github:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create ${{ github.ref_name }} -t ${{ github.ref_name }} --generate-notes
+
+  build-binary:
+    needs: publish
+    runs-on: ${{ matrix.image }}
+    strategy:
+      matrix:
+        include:
+          - image: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - image: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+          - image: macos-latest
+            target: x86_64-apple-darwin
+          - image: ubuntu-latest
+            target: x86_64-pc-windows-gnu
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cache cargo
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Install Rust stable
+        run: |
+          rustup toolchain install stable --target ${{ matrix.target }}
+      - if: contains(matrix.target, 'windows')
+        name: Install Windows dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y gcc-mingw-w64
+      - if: contains(matrix.target, 'apple')
+        name: Install Apple dependencies
+        run: |
+          brew install openssl coreutils
+      - name: Build
+        run: |
+          cargo build --release --target ${{ matrix.target }}
+      - name: Get package name
+        id: cargo-get
+        uses: nicolaiunrein/cargo-get@master
+        with:
+          subcommand: package.name
+      - name: Rename binary
+        run: |
+          cp target/${{ matrix.target }}/release/${{ steps.cargo-get.outputs.metadata }} target/${{ matrix.target }}/release/${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}
+      - name: Checksum
+        run: |
+          cd target/${{ matrix.target }}/release
+          sha256sum ${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }} > ${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}.sha256
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}
+          path: |
+            target/${{ matrix.target }}/release/${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}
+            target/${{ matrix.target }}/release/${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}.sha256
+          if-no-files-found: error
+      - if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        name: Upload assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            target/${{ matrix.target }}/release/${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}
+            target/${{ matrix.target }}/release/${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}.sha256
+  
+  publish-crate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Install Rust stable
+        run: |
+          rustup toolchain install stable
+      - name: Publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          cargo publish

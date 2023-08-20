@@ -1,0 +1,5 @@
+.git*
+target
+vendor
+.dockerignore
+Dockerfile
