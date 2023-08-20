@@ -30,7 +30,7 @@ jobs:
           gh release create ${{ github.ref_name }} -t ${{ github.ref_name }} --generate-notes
 
   build-binary:
-    needs: publish
+    needs: publish-github
     runs-on: ${{ matrix.image }}
     strategy:
       matrix:
