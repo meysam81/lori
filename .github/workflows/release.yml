@@ -41,8 +41,6 @@ jobs:
             target: x86_64-unknown-linux-musl
           - image: macos-latest
             target: x86_64-apple-darwin
-          - image: ubuntu-latest
-            target: x86_64-pc-windows-gnu
       fail-fast: false
     steps:
       - name: Checkout
@@ -58,11 +56,6 @@ jobs:
       - name: Install Rust stable
         run: |
           rustup toolchain install stable --target ${{ matrix.target }}
-      - if: contains(matrix.target, 'windows')
-        name: Install Windows dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y gcc-mingw-w64
       - if: contains(matrix.target, 'apple')
         name: Install Apple dependencies
         run: |
@@ -72,7 +65,7 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
       - name: Get package name
         id: cargo-get
-        uses: nicolaiunrein/cargo-get@master
+        uses: nicolaiunrein/cargo-get@8ad2b01
         with:
           subcommand: package.name
       - name: Rename binary

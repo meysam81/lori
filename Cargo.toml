@@ -2,6 +2,7 @@
 name = "ruby"
 version = "0.1.0"
 edition = "2021"
+description = "A CLI utility that receives emails from SMTP and sends them to SendGrid."
 license = "Apache-2.0"
 rust-version = "1.63.0"
 readme = "README.md"
