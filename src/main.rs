@@ -92,6 +92,7 @@ async fn main() {
 
     let sendgrid_api_key: String =
         std::env::var("SENDGRID_API_KEY").expect("SENDGRID_API_KEY env var cannot be empty");
+    let addr = std::env::var("BIND_ADDR").unwrap_or("0.0.0.0:2525".into());
 
     tokio::spawn(async move {
         loop {
@@ -100,7 +101,7 @@ async fn main() {
         }
     });
 
-    TcpServer::on_all(vec!["127.0.0.1:2525"])
+    TcpServer::on_all(vec![addr])
         .serve(service.build())
         .await
         .unwrap();
