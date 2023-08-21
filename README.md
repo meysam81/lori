@@ -1,6 +1,19 @@
-# ruby
+# lori
 
-*This package is named after my dog which is very dear to me 😍🐶*
+[![Code Size](https://img.shields.io/github/languages/code-size/meysam81/lori)](https://github.com/meysam81/lori)
+[![Repo Size](https://img.shields.io/github/repo-size/meysam81/lori)](https://github.com/meysam81/lori)
+[![Docs](https://img.shields.io/badge/docs-rs/lori?logo=docs.rs&label=docs.rs)](https://crates.io/crates/lori)
+[![Language Count](https://img.shields.io/github/languages/count/meysam81/lori)](https://github.com/meysam81/lori)
+[![Commit Intervals](https://img.shields.io/github/commit-activity/m/meysam81/lori)](https://github.com/meysam81/lori/commits)
+[![Last Release](https://img.shields.io/github/release-date/meysam81/lori?label=last%20release)](https://github.com/meysam81/lori/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/meysam81/lori?label=GitHub%20stars)](https://github.com/meysam81/lori/stargazers)
+[![GitHub Release Downloads](https://img.shields.io/github/downloads/meysam81/lori/total?label=GitHub%20Release%20Downloads)](https://github.com/meysam81/lori/releases)
+[![Cargo Crate](https://img.shields.io/crates/v/lori)](https://crates.io/crates/lori)
+[![Crate Download](https://img.shields.io/crates/d/lori?label=crate%20download)](https://crates.io/crates/lori)
+[![Docker pulls](https://img.shields.io/docker/pulls/meysam81/lori?label=Docker%20pulls)](https://hub.docker.com/r/meysam81/lori)
+[![Docker Image](https://img.shields.io/docker/image-size/meysam81/lori?label=Docker%20image)](https://hub.docker.com/r/meysam81/lori)
+[![License](https://img.shields.io/github/license/meysam81/lori)](https://github.com/meysam81/lori)
+[![Lines of Code](https://img.shields.io/tokei/lines/github/meysam81/lori?label=lines%20of%20code)](https://github.com/meysam81/lori)
 
 ## Intro
 
@@ -23,7 +36,7 @@ smtps://apikey:SENDGRID_API_KEY@smtp.sendgrid.net:465/
 ### Using cargo
 
 ```bash
-cargo install ruby
+cargo install lori
 ```
 
 ### Download compiled binary
@@ -34,15 +47,15 @@ platform.
 ### Docker
 
 ```bash
-docker run -p 2525:2525 -e SENDGRID_API_KEY=your-api-key meysam81/ruby
+docker run -p 2525:2525 -e SENDGRID_API_KEY=your-api-key meysam81/lori
 ```
 
 ## How to use it?
 
 ```bash
 export SENDGRID_API_KEY=your-api-key
-ruby  # listening on localhost:2525
+lori  # listening on localhost:2525
 ```
 
 [sendgrid-smtp]: https://docs.sendgrid.com/for-developers/sending-email/getting-started-smtp
-[release]: https://github.com/meysam81/ruby/releases/latest
+[release]: https://github.com/meysam81/lori/releases/latest

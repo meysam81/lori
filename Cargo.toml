@@ -1,13 +1,13 @@
 [package]
-name = "ruby"
+name = "lori"
 version = "0.1.0"
 edition = "2021"
 description = "A CLI utility that receives emails from SMTP and sends them to SendGrid."
 license = "Apache-2.0"
 rust-version = "1.63.0"
 readme = "README.md"
-repository = "https://github.com/meysam81/ruby"
-documentation = "https://docs.rs/ruby"
+repository = "https://github.com/meysam81/lori"
+documentation = "https://docs.rs/lori"
 authors = ["Meysam <contact@meysam.io>"]
 keywords = ["smtp", "sendgrid", "mail", "email", "cli"]
 categories = ["network-programming", "command-line-interface"]
