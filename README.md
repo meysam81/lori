@@ -15,6 +15,21 @@
 [![License](https://img.shields.io/github/license/meysam81/lori)](https://github.com/meysam81/lori)
 [![Lines of Code](https://img.shields.io/tokei/lines/github/meysam81/lori?label=lines%20of%20code)](https://github.com/meysam81/lori)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [lori](#lori)
+  - [Intro](#intro)
+  - [How to install it?](#how-to-install-it)
+    - [Using cargo](#using-cargo)
+    - [Download compiled binary](#download-compiled-binary)
+    - [Docker](#docker)
+  - [How to use it?](#how-to-use-it)
+  - [Todo](#todo)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Intro
 
 This is a simple SMTP server that receives mails and send it to SendGrid.
@@ -59,3 +74,7 @@ lori  # listening on localhost:2525
 
 [sendgrid-smtp]: https://docs.sendgrid.com/for-developers/sending-email/getting-started-smtp
 [release]: https://github.com/meysam81/lori/releases/latest
+
+## Todo
+
+- [ ] The docker image is stopped after processing the first email!
