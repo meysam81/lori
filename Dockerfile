@@ -19,8 +19,8 @@ RUN cargo install --path . --root /build/out
 
 FROM scratch AS runner
 
-COPY --from=builder /build/out/bin/ruby /usr/local/bin/ruby
+COPY --from=builder /build/out/bin/lori /usr/local/bin/lori
 COPY --from=entrypoint /usr/local/bin/dumb-init /usr/local/bin/dumb-init
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
-CMD ["/usr/local/bin/ruby"]
+CMD ["/usr/local/bin/lori"]
