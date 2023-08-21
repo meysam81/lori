@@ -64,7 +64,7 @@ jobs:
         name: Install musl dependencies
         run: |
           sudo apt update
-          sudo apt install -y musl-tools openssl-dev
+          sudo apt install -y musl-tools libssl-dev
       - name: Build
         run: |
           cargo build --release --target ${{ matrix.target }}
