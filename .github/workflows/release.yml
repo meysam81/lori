@@ -161,7 +161,7 @@ jobs:
           labels: |
             org.opencontainers.image.description: ${{ steps.readme.outputs.content }}
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           file: ${{ matrix.dockerfile }}
           labels: ${{ steps.meta.outputs.labels }}
