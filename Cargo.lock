@@ -844,7 +844,7 @@ dependencies = [
 
 [[package]]
 name = "lori"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
  "mail-parser",
  "nom 7.1.3",
@@ -881,9 +881,9 @@ dependencies = [
 
 [[package]]
 name = "mail-parser"
-version = "0.8.2"
+version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4158a1c18963244e083888b21465846dfb68d6170850ed1ab4742edd57c9d47"
+checksum = "ed5a1335c3a964788c90cb42ae04a34b5f2628e89566949ce3bd4ada695c0bcd"
 dependencies = [
  "encoding_rs",
  "serde",

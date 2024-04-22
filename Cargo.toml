@@ -20,7 +20,7 @@ include = [
 ]
 
 [dependencies]
-mail-parser = { version = "0.8.2", features = ["serde", "serde_support"] }
+mail-parser = { version = "0.9.3", features = ["serde", "serde_support"] }
 nom = "7.1.3" # not directly required, pinned for rust future compatibility
 num_cpus = "1.15.0"
 regex = { version = "1.8.3", features = ["std"] }
