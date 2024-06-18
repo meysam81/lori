@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         name: Create GitHub release
         env:
@@ -44,7 +44,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache cargo
         uses: actions/cache@v3
         with:
@@ -70,7 +70,7 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
       - name: Get package name
         id: cargo-get
-        uses: nicolaiunrein/cargo-get@8ad2b01b5ae4099470f6f83551a770bbf28fd3b8
+        uses: nicolaiunrein/cargo-get@ec90d78dd6484403dc0777e55ef0266c38588d3d
         with:
           subcommand: package.name
       - name: Rename binary
@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache
         uses: actions/cache@v3
         with:
@@ -128,9 +128,9 @@ jobs:
             dockerfile: Dockerfile
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up QEMU needed for Docker
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Login to GitHub Container Registry
@@ -154,14 +154,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
       - id: meta
         name: Docker metadata
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             ${{ env.REGISTRY }}/${{ matrix.image-repo }}
           labels: |
             org.opencontainers.image.description: ${{ steps.readme.outputs.content }}
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           file: ${{ matrix.dockerfile }}
           labels: ${{ steps.meta.outputs.labels }}
