@@ -81,7 +81,7 @@ jobs:
           cd target/${{ matrix.target }}/release
           sha256sum ${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }} > ${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}.sha256
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.cargo-get.outputs.metadata }}-${{ matrix.target }}
           path: |
